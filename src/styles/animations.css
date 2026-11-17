@@ -1,0 +1,43 @@
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+@keyframes cue-line {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+@keyframes drift {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  15% { opacity: 0.8; }
+  100% { transform: translate3d(var(--dx, 20px), -120px, 0); opacity: 0; }
+}
+
+.glow-dot {
+  animation: glow-pulse 2.6s ease-in-out infinite;
+}
+.cue-line {
+  animation: cue-line 2.2s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+}
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #9db6c9;
+  box-shadow: 0 0 10px 2px rgba(157, 182, 201, 0.55);
+  animation: drift 9s linear infinite;
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-dot,
+  .cue-line,
+  .particle {
+    animation: none;
+  }
+  .particle {
+    display: none;
+  }
+}
