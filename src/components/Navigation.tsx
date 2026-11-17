@@ -43,16 +43,6 @@ export function Navigation() {
     []
   );
 
-  // As setas acompanham a transição continuamente, como uma rolagem manual,
-  // em vez de saltarem diretamente para o início de outro capítulo.
-  const scrollProgressively = useCallback((direction: 1 | -1) => {
-    const distance = Math.max(80, window.innerHeight * 0.65);
-    window.scrollBy({
-      top: direction * distance,
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-    });
-  }, []);
-
   useEffect(() => {
     const st = ScrollTrigger.create({
       start: 0,
@@ -71,14 +61,12 @@ export function Navigation() {
       if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
       switch (e.key) {
         case "ArrowDown":
-        case "ArrowRight":
           e.preventDefault();
-          scrollProgressively(1);
+          next();
           break;
         case "ArrowUp":
-        case "ArrowLeft":
           e.preventDefault();
-          scrollProgressively(-1);
+          prev();
           break;
         case "Home":
           e.preventDefault();
@@ -101,7 +89,7 @@ export function Navigation() {
       window.removeEventListener("keydown", onKey);
       document.removeEventListener("fullscreenchange", onFs);
     };
-  }, [scrollProgressively, goTo, end]);
+  }, [next, prev, goTo, end]);
 
   function toggleFs() {
     if (!document.fullscreenEnabled) return;
@@ -185,7 +173,7 @@ export function Navigation() {
         )}
         aria-hidden="true"
       >
-        <span className="eyebrow !text-white/70">Role ou use as setas</span>
+        <span className="eyebrow !text-white/70">Role para avançar</span>
         <span className="relative block h-12 w-px overflow-hidden bg-white/15">
           <span className="cue-line absolute inset-0 bg-copper-light" />
         </span>
