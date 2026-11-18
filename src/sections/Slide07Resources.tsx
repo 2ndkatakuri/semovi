@@ -7,10 +7,8 @@ import type { SceneBuilder } from "@/animations/scrollAnimations";
 import { drawStrokes, revealOfficial } from "@/animations/svgAnimations";
 import { layerIn, maskReveal } from "@/animations/transitions";
 
-/** Desktop: centro (50,50) → quatro painéis | Mobile: coluna com barramento vertical */
 const DESKTOP_LINES = ["M50 50 L38 27", "M50 50 L62 27", "M50 50 L38 77", "M50 50 L62 77"];
 const MOBILE_Y = [37, 53.5, 70, 86.5];
-
 const DESKTOP_POS = [
   "md:right-auto md:left-[4%] md:top-[12%]",
   "md:left-auto md:right-[4%] md:top-[12%]",
@@ -26,7 +24,6 @@ const build: SceneBuilder = (tl, q) => {
   revealOfficial(tl, q, ".s7-center .brasao-mark", 2.2, 1.2, "circle");
   tl.fromTo(q(".s7-ring"), { scale: 0.4, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 2, ease: "power2.out" }, 0.4);
   drawStrokes(tl, q(".s7-spine"), 2.4, 0.8);
-
   RECURSOS.forEach((_, i) => {
     const at = 3.2 + i * 1.5;
     drawStrokes(tl, q(`.s7-line-d-${i}, .s7-line-m-${i}`), at, 0.9);
@@ -41,17 +38,13 @@ export default function Slide07Resources() {
   return (
     <SectionTransition id="recursos" n={7} label="Recursos captados" height={4.5} build={build}>
       <div className="blueprint absolute inset-0 opacity-50" />
-
-      {/* título */}
       <div className="absolute inset-x-0 top-[3%] z-10 px-6 pt-16 text-center md:inset-x-[38%] md:top-[6%] md:px-0 md:pt-6">
-        <p className="s7-eyebrow eyebrow !text-copper-light">07 · Recursos captados</p>
+        <p className="s7-eyebrow eyebrow !text-copper-light">07 – Recursos captados</p>
         <h2 className="s7-title t-md mt-2 md:mt-4 md:!text-[1.7vw]">
           <Mask>Desenvolvimento também</Mask>
           <Mask>se constrói com parcerias.</Mask>
         </h2>
       </div>
-
-      {/* anel técnico + linhas de conexão */}
       <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 hidden h-full w-full md:block" fill="none" aria-hidden="true">
         {DESKTOP_LINES.map((d, i) => (
           <path key={i} className={`s7-line-d-${i}`} pathLength={1} d={d} stroke="#e58f68" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
@@ -63,14 +56,10 @@ export default function Slide07Resources() {
           <path key={i} className={`s7-line-m-${i}`} pathLength={1} d={`M4 ${y} H9`} stroke="#e58f68" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
         ))}
       </svg>
-
-      {/* brasão no centro */}
       <div className="s7-center absolute left-1/2 top-[18%] z-10 -translate-x-1/2 -translate-y-1/2 md:top-1/2">
         <div className="s7-ring absolute -inset-6 rounded-full border border-dashed border-steel/60 md:-inset-10" />
         <BrasaoMark className="w-24 rounded-full bg-navy/80 md:w-44" />
       </div>
-
-      {/* instrumentos */}
       {RECURSOS.map((r, i) => (
         <article
           key={r.id}

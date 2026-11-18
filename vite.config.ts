@@ -8,9 +8,11 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss(), viteSingleFile()],
+  server: {
+    allowedHosts: ["5173-iid69hisagfghkjvfwe3t-b16bdc2e.us3.manus.computer"],
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),

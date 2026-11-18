@@ -7,22 +7,15 @@ import { layerIn, layerOut, maskReveal } from "@/animations/transitions";
 
 const build: SceneBuilder = (tl, q) => {
   const desktop = window.matchMedia("(min-width: 768px)").matches;
-
   maskReveal(tl, q(".s9-title .mask-in"), 0.1, 1.1, 0.14);
   layerIn(tl, q(".s9-eyebrow"), 0, 0.8, 0, 14);
-
-  // 1) a linha do tempo avança…
   drawStrokes(tl, q(".s9-segA"), 0.8, 3);
   layerIn(tl, q(".s9-lab-start"), 1, 0.7, 0, 10);
-
-  // 2) …e é interrompida
   tl.to(q(".s9-segA"), { stroke: "#e58f68", duration: 0.8, ease: "none" }, 3.8);
   tl.fromTo(q(".s9-ghost"), { autoAlpha: 0 }, { autoAlpha: 0.9, duration: 0.6 }, 3.8);
   tl.fromTo(q(".s9-pause"), { scaleY: 0, autoAlpha: 0 }, { scaleY: 1, autoAlpha: 1, duration: 0.6, stagger: 0.1, ease: "back.out(2)" }, 3.9);
   layerIn(tl, q(".s9-lab-break"), 4.2, 0.7, 0, 10);
   tl.to(q(".s9-tint"), { opacity: 0.2, duration: 1.2, ease: "none" }, 3.8);
-
-  // 3) desafios apresentados com sobriedade
   if (desktop) {
     layerIn(tl, q(".s9-card"), 4.7, 0.9, 0.25, 30);
   } else {
@@ -32,8 +25,6 @@ const build: SceneBuilder = (tl, q) => {
       if (i < DESAFIOS.length - 1) layerOut(tl, q(`.s9-card-${i}`), at + 1.1, 0.4, -16);
     });
   }
-
-  // 4) a linha volta a avançar: providências e encaminhamentos
   tl.to(q(".s9-tint"), { opacity: 0, duration: 1.4, ease: "none" }, 6.8);
   drawStrokes(tl, q(".s9-segB"), 6.6, 2.8);
   tl.to(q(".s9-ghost"), { autoAlpha: 0.25, duration: 0.6 }, 6.6);
@@ -47,16 +38,13 @@ export default function Slide09Challenges() {
     <SectionTransition id="desafios" n={9} label="O que não avançou" height={4} build={build} className="!bg-[#071c2d]">
       <div className="s9-tint pointer-events-none absolute inset-0 bg-copper opacity-0" />
       <div className="blueprint absolute inset-0 opacity-30" />
-
       <div className="absolute inset-x-0 top-0 px-6 pt-20 md:px-14">
-        <p className="s9-eyebrow eyebrow !text-copper-light">09 · O que não avançou</p>
+        <p className="s9-eyebrow eyebrow !text-copper-light">09 – O que não avançou</p>
         <h2 className="s9-title t-xl mt-3 max-w-4xl">
           <Mask>Transparência também</Mask>
           <Mask>é reconhecer desafios.</Mask>
         </h2>
       </div>
-
-      {/* linha do tempo interrompida e retomada */}
       <div className="absolute inset-x-0 top-[37%] h-10 px-6 md:px-14">
         <div className="relative h-full w-full">
           <svg viewBox="0 0 1000 40" preserveAspectRatio="none" className="absolute inset-0 h-full w-full overflow-visible" fill="none" aria-hidden="true">
@@ -71,11 +59,9 @@ export default function Slide09Challenges() {
           </svg>
           <span className="s9-lab-start eyebrow absolute -top-7 left-0 opacity-0">Execução</span>
           <span className="s9-lab-break eyebrow absolute -top-7 left-[43%] opacity-0 !text-copper-light">Interrupção</span>
-          <span className="s9-lab-resume eyebrow absolute -top-7 right-[6%] opacity-0 !text-leaf">Retomada · providências</span>
+          <span className="s9-lab-resume eyebrow absolute -top-7 right-[6%] opacity-0 !text-leaf">Retomada – providências</span>
         </div>
       </div>
-
-      {/* desafios */}
       <div className="absolute inset-x-0 bottom-0 top-[47%] grid content-start px-6 pb-16 pt-4 md:grid-cols-3 md:gap-5 md:px-14">
         {DESAFIOS.map((d, i) => (
           <article

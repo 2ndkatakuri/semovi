@@ -1,11 +1,6 @@
 import { ANOS } from "@/config/content";
 import { cn } from "@/utils/cn";
 
-/**
- * Linha do tempo monumental 2025 → 2028.
- * 2025–2026: retrospectiva (realizado) | 2027–2028: planejamento (metas).
- * Classes-alvo da animação: .tl-seg (traçado), .tl-year, .tl-dot, .tl-label, .tl-note
- */
 const SEGMENTS = [
   { d: "M0 20 H125", planning: false },
   { d: "M125 20 H375", planning: false },
@@ -31,7 +26,6 @@ export function Timeline({ className }: { className?: string }) {
           </div>
         ))}
       </div>
-
       <div className="relative mt-5 h-10 md:mt-8">
         <svg
           viewBox="0 0 1000 40"

@@ -1,10 +1,8 @@
 import { useEffect, useRef } from "react";
 import { ScrollTrigger } from "@/animations/scrollAnimations";
 
-/** Barra fina de progresso global no topo da página. */
 export function ScrollProgress() {
   const bar = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const st = ScrollTrigger.create({
       start: 0,
@@ -15,7 +13,6 @@ export function ScrollProgress() {
     });
     return () => st.kill();
   }, []);
-
   return (
     <div className="pointer-events-none fixed inset-x-0 top-0 z-50 h-[3px] bg-white/5" aria-hidden="true">
       <div

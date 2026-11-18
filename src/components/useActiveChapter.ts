@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { ScrollTrigger, getChapterTops } from "@/animations/scrollAnimations";
 
-/** Índice (0-based) do capítulo atualmente visível. */
 export function useActiveChapter() {
   const [active, setActive] = useState(0);
-
   useEffect(() => {
     let tops = getChapterTops();
     const update = () => {
@@ -29,6 +27,5 @@ export function useActiveChapter() {
       ScrollTrigger.removeEventListener("refresh", refresh);
     };
   }, []);
-
   return active;
 }

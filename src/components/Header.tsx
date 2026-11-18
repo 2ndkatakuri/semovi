@@ -13,7 +13,6 @@ function HeaderLogo({ src, alt, fallback }: { src: string; alt: string; fallback
   return <img src={src} alt={alt} className="h-7 w-auto sm:h-9" onError={() => setFailed(true)} />;
 }
 
-/** Cabeçalho discreto: identidade institucional + capítulo atual. */
 export function Header() {
   const active = useActiveChapter();
   const chapter = CHAPTERS[active];

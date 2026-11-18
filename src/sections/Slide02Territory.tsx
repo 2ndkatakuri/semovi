@@ -16,7 +16,6 @@ const COLORS: Record<string, string> = {
   ribeirinhas: "#4fb633",
 };
 
-/** Pontos ESQUEMÁTICOS (não georreferenciados) — substituir pelo mapa oficial em /img/mapa-altamira.svg */
 const POINTS: Record<string, [number, number][]> = {
   bairros: [[300, 250], [330, 230], [275, 225], [320, 270], [355, 255], [285, 275]],
   distritos: [[150, 170], [470, 150], [440, 360]],
@@ -32,12 +31,10 @@ const build: SceneBuilder = (tl, q) => {
   tl.fromTo(q(".s2-grid"), { autoAlpha: 0 }, { autoAlpha: 1, duration: 1.2 }, 0);
   maskReveal(tl, q(".s2-title .mask-in"), 0.2, 1.2, 0.15);
   layerIn(tl, q(".s2-eyebrow"), 0, 0.8);
-
   drawStrokes(tl, q(".s2-contour"), 0.4, 3.2);
   drawStrokes(tl, q(".s2-river"), 2, 2.2);
   drawStrokes(tl, q(".s2-line"), 3, 1.5, 0.12);
   tl.fromTo(q(".s2-contour-fill"), { autoAlpha: 0 }, { autoAlpha: 1, duration: 1.5 }, 3);
-
   TERRITORIOS.forEach((t, i) => {
     const at = 4 + i * 0.95;
     tl.fromTo(
@@ -49,8 +46,6 @@ const build: SceneBuilder = (tl, q) => {
     tl.fromTo(q(`.s2-leg-${t.id}`), { opacity: 0.28, x: -12 }, { opacity: 1, x: 0, duration: 0.7 }, at);
   });
   tl.fromTo(q(".s2-official-map"), { autoAlpha: 0 }, { autoAlpha: 0.9, duration: 1.5 }, 7.3);
-
-  // painel A → painel B (identificação)
   layerOut(tl, q(".s2-panelA"), 8.1, 0.7, -30);
   layerIn(tl, q(".s2-panelB"), 8.6, 0.9, 0.1, 30);
 };
@@ -60,12 +55,10 @@ export default function Slide02Territory() {
     <SectionTransition id="territorio" n={2} label="Identificação e território" height={4} build={build}>
       <VideoBackground src={MEDIA.videos.altamiraAerea} maxOpacity={0.16} />
       <div className="s2-grid blueprint absolute inset-0 opacity-0" />
-
       <div className="absolute inset-0 grid grid-rows-[auto_1fr] gap-2 px-6 pb-20 pt-20 md:grid-cols-[0.9fr_1.1fr] md:grid-rows-1 md:items-center md:gap-10 md:px-14 md:pt-16">
-        {/* painéis de texto */}
         <div className="grid">
           <div className="s2-panelA [grid-area:1/1]">
-            <p className="s2-eyebrow eyebrow !text-copper-light">02 · Identificação e território</p>
+            <p className="s2-eyebrow eyebrow !text-copper-light">02 – Identificação e território</p>
             <h2 className="s2-title t-xl mt-3 md:mt-5">
               <Mask>Uma cidade,</Mask>
               <Mask>muitas realidades.</Mask>
@@ -84,7 +77,6 @@ export default function Slide02Territory() {
               ))}
             </ul>
           </div>
-
           <div className="s2-panelB invisible opacity-0 [grid-area:1/1]">
             <p className="eyebrow !text-copper-light">Identificação da Secretaria</p>
             <h3 className="t-lg mt-3">{IDENTIFICACAO.secretaria}</h3>
@@ -96,11 +88,8 @@ export default function Slide02Territory() {
             </div>
           </div>
         </div>
-
-        {/* mapa */}
         <div className="relative min-h-0">
           <svg viewBox="0 0 600 520" className="absolute inset-0 h-full w-full" fill="none" aria-label="Mapa esquemático de Altamira">
-            {/* cotas e linhas técnicas */}
             <g stroke="#5a7d9a" strokeWidth="0.8" strokeOpacity="0.7">
               {[130, 260, 390].map((x) => (
                 <line key={`v${x}`} className="s2-line" pathLength={1} x1={x} y1="20" x2={x} y2="500" strokeDasharray="1" />
@@ -124,7 +113,7 @@ export default function Slide02Territory() {
               ))
             )}
             <text x="24" y="512" fontSize="10" fill="#9db6c9" fontFamily="ui-monospace, monospace" letterSpacing="2">
-              ESQUEMA ILUSTRATIVO · NÃO GEORREFERENCIADO
+              ESQUEMA ILUSTRATIVO – NÃO GEORREFERENCIADO
             </text>
           </svg>
           <OptionalImg

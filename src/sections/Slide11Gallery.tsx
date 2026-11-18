@@ -13,7 +13,6 @@ const DIRS = ["bottom", "right", "top", "left"] as const;
 const STEP = 0.72;
 
 const build: SceneBuilder = (tl, q) => {
-  /* Galeria: cada fotografia entra e sai conforme a rolagem */
   layerIn(tl, q(".s11-eyebrow"), 0, 0.6, 0, 10);
   MEDIA.galeria.forEach((_, i) => {
     const S = i * STEP;
@@ -23,8 +22,6 @@ const build: SceneBuilder = (tl, q) => {
     layerIn(tl, q(`${item} .s11-cap > *`), S + 0.4, 0.5, 0.08, 20);
     if (i < MEDIA.galeria.length - 1) layerOut(tl, q(`${item} .s11-cap`), S + STEP + 0.05, 0.3, -10);
   });
-
-  /* Encerramento: reconstrução vetorial do brasão e da identidade SEMOVI */
   const F = MEDIA.galeria.length * STEP;
   tl.to(q(".s11-gallery, .s11-eyebrow"), { autoAlpha: 0, duration: 0.7, ease: "none" }, F);
   tl.fromTo(q(".s11-final"), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.7, ease: "none" }, F - 0.1);
@@ -39,9 +36,8 @@ export default function Slide11Gallery() {
   return (
     <SectionTransition id="galeria" n={11} label="Registro fotográfico e encerramento" height={11} build={build}>
       <p className="s11-eyebrow eyebrow pointer-events-none absolute left-6 top-24 z-20 !text-copper-light opacity-0 sm:left-10 md:left-16">
-        11 · Registro fotográfico
+        11 – Registro fotográfico
       </p>
-
       <div className="s11-gallery absolute inset-0">
         {MEDIA.galeria.map((src, i) => {
           const m = GALERIA_META[i];
@@ -71,8 +67,6 @@ export default function Slide11Gallery() {
           );
         })}
       </div>
-
-      {/* encerramento */}
       <div className="s11-final invisible absolute inset-0 flex flex-col items-center justify-center bg-navy-deep px-6 text-center opacity-0">
         <VideoBackground src={MEDIA.videos.encerramento} maxOpacity={0.3} />
         <div className="blueprint absolute inset-0 opacity-50" />
@@ -84,7 +78,7 @@ export default function Slide11Gallery() {
           <Mask inClassName="text-leaf">O trabalho continua.</Mask>
         </h2>
         <p className="s11-credit eyebrow relative mt-8 opacity-0">
-          Prefeitura Municipal de Altamira · Secretaria Municipal de Obras e Viação
+          Prefeitura Municipal de Altamira – Secretaria Municipal de Obras e Viação
         </p>
       </div>
     </SectionTransition>

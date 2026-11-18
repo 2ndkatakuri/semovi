@@ -12,7 +12,6 @@ type FieldProps = {
   valueClassName?: string;
 };
 
-/** Campo editável: exibe o dado oficial ou o selo "pendente de preenchimento". */
 export function Field({ label, value, className, valueClassName }: FieldProps) {
   const empty = value == null || value === "";
   return (
@@ -25,7 +24,6 @@ export function Field({ label, value, className, valueClassName }: FieldProps) {
   );
 }
 
-/** Máscara de texto: use com maskReveal sobre `.mask-in` */
 export function Mask({
   children,
   className,

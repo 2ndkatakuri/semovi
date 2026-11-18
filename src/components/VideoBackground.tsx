@@ -2,12 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/utils/cn";
 import { prefersReducedMotion } from "@/animations/scrollAnimations";
 
-/**
- * Árbitro global: apenas UM vídeo reproduz por vez (o mais visível; em empate, o último
- * no DOM, que normalmente é a camada superior). Os demais são pausados.
- */
 const ratios = new Map<HTMLVideoElement, number>();
-
 function arbitrate() {
   const reduce = prefersReducedMotion();
   let best: HTMLVideoElement | null = null;
@@ -32,16 +27,9 @@ type Props = {
   src: string;
   poster?: string;
   className?: string;
-  /** opacidade máxima quando o vídeo está carregado */
   maxOpacity?: number;
 };
 
-/**
- * Vídeo de fundo com carregamento progressivo:
- * - preload="none" até a seção entrar na área de visualização;
- * - reproduz apenas enquanto visível e pausa ao sair;
- * - desaparece silenciosamente se o arquivo não existir (a fotografia/estrutura permanece).
- */
 export function VideoBackground({ src, poster, className, maxOpacity = 1 }: Props) {
   const ref = useRef<HTMLVideoElement>(null);
   const [ready, setReady] = useState(false);

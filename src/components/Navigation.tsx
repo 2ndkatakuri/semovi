@@ -4,10 +4,6 @@ import { ScrollTrigger, getChapterTops, scrollToY } from "@/animations/scrollAni
 import { cn } from "@/utils/cn";
 import { useActiveChapter } from "./useActiveChapter";
 
-/**
- * Navegação mínima: trilho vertical numerado, botões avançar/voltar, tela cheia,
- * indicador de scroll e atalhos de teclado. A rolagem natural nunca é bloqueada.
- */
 export function Navigation() {
   const active = useActiveChapter();
   const fill = useRef<HTMLDivElement>(null);
@@ -61,10 +57,12 @@ export function Navigation() {
       if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
       switch (e.key) {
         case "ArrowDown":
+        case "PageDown":
           e.preventDefault();
           next();
           break;
         case "ArrowUp":
+        case "PageUp":
           e.preventDefault();
           prev();
           break;
@@ -102,11 +100,7 @@ export function Navigation() {
 
   return (
     <>
-      {/* trilho de capítulos */}
-      <nav
-        aria-label="Capítulos"
-        className="fixed right-2 top-1/2 z-40 -translate-y-1/2 sm:right-5"
-      >
+      <nav aria-label="Capítulos" className="fixed right-2 top-1/2 z-40 -translate-y-1/2 sm:right-5">
         <div className="relative flex flex-col items-end gap-[7px] py-2">
           <div className="absolute bottom-3 right-[5px] top-3 w-px bg-white/15">
             <div ref={fill} className="h-full origin-top bg-copper-light" style={{ transform: "scaleY(0)" }} />
@@ -125,7 +119,7 @@ export function Navigation() {
                   active === i && "opacity-100 !text-copper-light"
                 )}
               >
-                {String(c.n).padStart(2, "0")} · {c.title}
+                {String(c.n).padStart(2, "0")} – {c.title}
               </span>
               <span
                 className={cn(
@@ -140,14 +134,13 @@ export function Navigation() {
         </div>
       </nav>
 
-      {/* controles */}
       <div className="pointer-events-none fixed bottom-5 right-4 z-40 flex items-center gap-2 sm:right-8">
-        <button className={btn} onClick={prev} aria-label="Voltar um capítulo" title="Voltar (↑)">
+        <button className={btn} onClick={prev} aria-label="Voltar um capítulo" title="Voltar (Seta Cima)">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6">
             <path d="M3 10l5-5 5 5" />
           </svg>
         </button>
-        <button className={btn} onClick={next} aria-label="Avançar um capítulo" title="Avançar (↓)">
+        <button className={btn} onClick={next} aria-label="Avançar um capítulo" title="Avançar (Seta Baixo)">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6">
             <path d="M3 6l5 5 5-5" />
           </svg>
@@ -165,7 +158,6 @@ export function Navigation() {
         )}
       </div>
 
-      {/* indicador de scroll */}
       <div
         className={cn(
           "pointer-events-none fixed bottom-6 left-1/2 z-40 flex -translate-x-1/2 flex-col items-center gap-3 transition-opacity duration-700",
@@ -173,7 +165,7 @@ export function Navigation() {
         )}
         aria-hidden="true"
       >
-        <span className="eyebrow !text-white/70">Role para avançar</span>
+        <span className="eyebrow !text-white/70">Role ou use as setas para avançar</span>
         <span className="relative block h-12 w-px overflow-hidden bg-white/15">
           <span className="cue-line absolute inset-0 bg-copper-light" />
         </span>

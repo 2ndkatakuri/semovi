@@ -2,11 +2,6 @@ import { useState } from "react";
 import { MEDIA } from "@/config/media";
 import { cn } from "@/utils/cn";
 
-/**
- * Brasão: o traçado vetorial é apenas a GEOMETRIA DE CONSTRUÇÃO (círculos, eixos, cotas)
- * que "monta" a revelação. O brasão em si é SEMPRE o arquivo oficial
- * (/img/brasao-altamira.svg) — nunca redesenhado nem modificado.
- */
 const TICKS = Array.from({ length: 24 }, (_, i) => {
   const a = (i * 15 * Math.PI) / 180;
   const r1 = i % 2 === 0 ? 86 : 90;
@@ -42,18 +37,18 @@ export function BrasaoMark({ className }: { className?: string }) {
         />
       </svg>
       {!failed && (
-      <img
-        src={MEDIA.logos.brasao}
-        alt="Brasão da Prefeitura de Altamira"
-        loading="eager"
-        decoding="async"
-        onLoad={() => setOfficial(true)}
-        onError={() => setFailed(true)}
-        className="official absolute left-[28%] top-[22%] h-[56%] w-[44%] object-contain opacity-0"
-      />
+        <img
+          src={MEDIA.logos.brasao}
+          alt="Brasão da Prefeitura de Altamira"
+          loading="eager"
+          decoding="async"
+          onLoad={() => setOfficial(true)}
+          onError={() => setFailed(true)}
+          className="official absolute left-[28%] top-[22%] h-[56%] w-[44%] object-contain opacity-0"
+        />
       )}
       {!official && (
-        <span className="fallback-sub pointer-events-none absolute inset-x-0 top-[44%] text-center font-mono text-[0.55rem] uppercase tracking-[0.2em] text-copper-light/80">
+        <span className="fallback-sub pointer-events-none absolute inset-x-0 top-[44%] text-center font-mono text-[0.55rem] uppercase tracking-[0.2em] text-copper-light/85">
           brasão oficial
           <br />
           pendente
@@ -108,21 +103,20 @@ export function SemoviMark({ className }: { className?: string }) {
         </text>
       </svg>
       {!failed && (
-      <img
-        src={MEDIA.logos.semovi}
-        alt="SEMOVI — Secretaria Municipal de Obras e Viação"
-        loading="eager"
-        decoding="async"
-        onLoad={() => setOfficial(true)}
-        onError={() => setFailed(true)}
-        className="official absolute inset-0 h-full w-full object-contain object-left opacity-0"
-      />
+        <img
+          src={MEDIA.logos.semovi}
+          alt="SEMOVI – Secretaria Municipal de Obras e Viação"
+          loading="eager"
+          decoding="async"
+          onLoad={() => setOfficial(true)}
+          onError={() => setFailed(true)}
+          className="official absolute inset-0 h-full w-full object-contain object-left opacity-0"
+        />
       )}
     </div>
   );
 }
 
-/** Conjunto brasão + identidade SEMOVI */
 export function AnimatedLogo({ className, stacked }: { className?: string; stacked?: boolean }) {
   return (
     <div className={cn("flex items-center", stacked ? "flex-col gap-6" : "gap-6", className)}>

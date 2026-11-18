@@ -1,18 +1,7 @@
-/**
- * CONTEÚDO DA APRESENTAÇÃO
- * ------------------------------------------------------------------
- * Regra institucional: nenhum valor, obra ou quantitativo é inventado.
- * Todo campo com `null` é exibido como "pendente de preenchimento".
- * Para publicar um dado oficial, basta substituir `null` pelo valor.
- *   - Valores monetários: número (ex.: 1250000.5) → formatado em R$ pt-BR
- *   - Quantitativos: número
- *   - Textos: string
- */
-
 export type Maybe<T> = T | null;
 
 export const ORG = {
-  municipio: "Prefeitura Municipal de Altamira — Pará",
+  municipio: "Prefeitura Municipal de Altamira – Pará",
   secretaria: "Secretaria Municipal de Obras e Viação",
   sigla: "SEMOVI",
 };
@@ -20,20 +9,19 @@ export const ORG = {
 export const CHAPTERS = [
   { n: 1, id: "abertura", title: "Abertura" },
   { n: 2, id: "territorio", title: "Identificação e território" },
-  { n: 3, id: "numeros", title: "Os três números da gestão" },
+  { n: 3, id: "numeros", title: "Os números da gestão" },
   { n: 4, id: "entregas", title: "Principais entregas" },
   { n: 5, id: "cidadao", title: "Resultados para o cidadão" },
   { n: 6, id: "orcamento", title: "Execução orçamentária" },
   { n: 7, id: "recursos", title: "Recursos captados" },
   { n: 8, id: "compromissos", title: "Compromissos de governo" },
   { n: 9, id: "desafios", title: "O que não avançou" },
-  { n: 10, id: "futuro", title: "Próximos passos 2027–2028" },
+  { n: 10, id: "futuro", title: "Próximos passos 2027-2028" },
   { n: 11, id: "galeria", title: "Registro e encerramento" },
 ] as const;
 
-/* ------------------------------ SLIDE 02 ------------------------------ */
 export const IDENTIFICACAO = {
-  secretaria: "Secretaria Municipal de Obras e Viação — SEMOVI",
+  secretaria: "Secretaria Municipal de Obras e Viação – SEMOVI",
   titular: null as Maybe<string>,
   pontoFocal: null as Maybe<string>,
   estrutura: null as Maybe<string>,
@@ -47,12 +35,11 @@ export const TERRITORIOS = [
   { id: "ribeirinhas", label: "Comunidades ribeirinhas", detalhe: "Rios e ilhas", quantidade: null as Maybe<number> },
 ];
 
-/* ------------------------------ SLIDE 03 ------------------------------ */
 export const INDICADORES = [
   {
     id: "pavimentacao",
     titulo: "Pavimentação e recuperação de vias",
-    unidade: "metros / km — definir unidade oficial",
+    unidade: "metros / km – definir unidade oficial",
     dez2024: null as Maybe<number>,
     out2026: null as Maybe<number>,
   },
@@ -72,7 +59,6 @@ export const INDICADORES = [
   },
 ];
 
-/* ------------------------------ SLIDE 04 ------------------------------ */
 export const ENTREGAS = [
   {
     id: "orla",
@@ -103,33 +89,29 @@ export const ENTREGAS = [
   },
 ];
 
-/* ------------------------------ SLIDE 05 ------------------------------ */
 export const DIMENSOES = [
   {
     id: "mobilidade",
-    titulo: "Mobilidade urbana",
-    vinculo: "Pavimentação → mobilidade",
-    indicador: null as Maybe<string>,
+    titulo: "Mobilidade urbana e tráfego",
+    vinculo: "Pavimentação, recapeamento e tapa-buracos — 22 bairros atendidos",
+    indicador: "2026 (jan–out): 10.586,07 t aplicadas; área estimada de 88.217,25 m². O relatório não informa a base comparativa de 2025.",
   },
   {
     id: "acesso",
-    titulo: "Acesso às comunidades",
-    vinculo: "Conservação de vicinais → conexão entre comunidades",
-    indicador: null as Maybe<string>,
+    titulo: "Escoamento da produção rural",
+    vinculo: "Estradas vicinais e pontes — Assurini e Colônias Velhas",
+    indicador: "Pontes: 52 em 2025 e 71 até out/2026 (+19; +36,5%). Vicinais: 927,72 km em 2026, mesmo patamar de 2025.",
   },
   {
     id: "qualidade",
     titulo: "Qualidade de vida",
-    vinculo: "Iluminação pública → melhoria da infraestrutura urbana",
+    vinculo: "Iluminação pública – melhoria da infraestrutura urbana",
     indicador: null as Maybe<string>,
   },
 ];
 
-/* ------------------------------ SLIDE 06 ------------------------------ */
-/** Valores em reais — somente dados validados pela Contabilidade. */
 export const ORCAMENTO = {
   anos: [2025, 2026] as const,
-  /** [2025, 2026] */
   dotacao: [null, null] as Maybe<number>[],
   empenhado: [null, null] as Maybe<number>[],
   liquidado: [null, null] as Maybe<number>[],
@@ -140,7 +122,6 @@ export const ORCAMENTO = {
   ],
 };
 
-/* ------------------------------ SLIDE 07 ------------------------------ */
 export const RECURSOS = [
   { id: "convenios", titulo: "Convênios", origem: null as Maybe<string>, valor: null as Maybe<number>, objeto: null as Maybe<string>, situacao: null as Maybe<string> },
   { id: "emendas", titulo: "Emendas parlamentares", origem: null as Maybe<string>, valor: null as Maybe<number>, objeto: null as Maybe<string>, situacao: null as Maybe<string> },
@@ -148,7 +129,6 @@ export const RECURSOS = [
   { id: "parcerias", titulo: "Parcerias institucionais", origem: null as Maybe<string>, valor: null as Maybe<number>, objeto: null as Maybe<string>, situacao: null as Maybe<string> },
 ];
 
-/* ------------------------------ SLIDE 08 ------------------------------ */
 export type StatusCompromisso = "concluido" | "andamento" | "nao-iniciado";
 
 export const STATUS_META: Record<StatusCompromisso, { label: string; color: string }> = {
@@ -166,19 +146,17 @@ export const COMPROMISSOS = [
   { id: "c6", area: "Obras estruturantes e equipamentos", metaPPA: null as Maybe<string>, executado: null as Maybe<string>, status: null as Maybe<StatusCompromisso>, progresso: null as Maybe<number> },
 ];
 
-/* ------------------------------ SLIDE 09 ------------------------------ */
 export const DESAFIOS = [
   { id: "d1", acao: null as Maybe<string>, situacao: null as Maybe<"Paralisada" | "Atrasada">, motivo: null as Maybe<string>, providencia: null as Maybe<string>, novoPrazo: null as Maybe<string> },
   { id: "d2", acao: null as Maybe<string>, situacao: null as Maybe<"Paralisada" | "Atrasada">, motivo: null as Maybe<string>, providencia: null as Maybe<string>, novoPrazo: null as Maybe<string> },
   { id: "d3", acao: null as Maybe<string>, situacao: null as Maybe<"Paralisada" | "Atrasada">, motivo: null as Maybe<string>, providencia: null as Maybe<string>, novoPrazo: null as Maybe<string> },
 ];
 
-/* ------------------------------ SLIDE 10 ------------------------------ */
 export const ANOS = [
   { ano: 2025, tipo: "retrospectiva" as const, rotulo: "Retrospectiva", nota: "Obras e serviços realizados" },
   { ano: 2026, tipo: "retrospectiva" as const, rotulo: "Retrospectiva", nota: "Execução em curso" },
-  { ano: 2027, tipo: "planejamento" as const, rotulo: "Planejamento", nota: "Meta — ainda não executada" },
-  { ano: 2028, tipo: "planejamento" as const, rotulo: "Planejamento", nota: "Meta — ainda não executada" },
+  { ano: 2027, tipo: "planejamento" as const, rotulo: "Planejamento", nota: "Meta – ainda não executada" },
+  { ano: 2028, tipo: "planejamento" as const, rotulo: "Planejamento", nota: "Meta – ainda não executada" },
 ];
 
 export const EIXOS = [
@@ -211,7 +189,6 @@ export const EIXOS = [
   },
 ];
 
-/* ------------------------------ SLIDE 11 ------------------------------ */
 export const GALERIA_META: {
   identificacao: Maybe<string>;
   data: Maybe<string>;

@@ -10,11 +10,8 @@ const build: SceneBuilder = (tl, q) => {
   const fill = q(".s8-fill")[0] as HTMLElement;
   const dist = () => Math.max(0, track.scrollWidth - window.innerWidth);
   const head = () => window.innerWidth * 0.3;
-
   maskReveal(tl, q(".s8-title .mask-in"), 0.1, 1.1, 0.14);
   layerIn(tl, q(".s8-eyebrow, .s8-legend > *"), 0.2, 0.8, 0.1, 14);
-
-  // deslocamento horizontal dentro da seção vertical + preenchimento da linha de progresso
   const START = 0.8;
   const SPAN = 9;
   tl.fromTo(track, { x: 0 }, { x: () => -dist(), duration: SPAN, ease: "none" }, START);
@@ -24,8 +21,6 @@ const build: SceneBuilder = (tl, q) => {
     { scaleX: () => (dist() + head()) / track.scrollWidth, duration: SPAN, ease: "none" },
     START
   );
-
-  // cada compromisso surge ao entrar na área de visualização
   const D = dist();
   q(".s8-card").forEach((card, i) => {
     const el = card as HTMLElement;
@@ -53,14 +48,13 @@ function StatusBadge({ status }: { status: StatusCompromisso | null }) {
 export default function Slide08Commitments() {
   const classified = COMPROMISSOS.some((c) => c.status);
   const count = (s: StatusCompromisso) => COMPROMISSOS.filter((c) => c.status === s).length;
-
   return (
     <SectionTransition id="compromissos" n={8} label="Compromissos de governo" height={5} build={build}>
       <div className="blueprint absolute inset-0 opacity-40" />
       <div className="absolute inset-0 flex flex-col pb-16 pt-20">
         <div className="flex flex-wrap items-end justify-between gap-4 px-6 md:px-14">
           <div>
-            <p className="s8-eyebrow eyebrow !text-copper-light">08 · Compromissos de governo</p>
+            <p className="s8-eyebrow eyebrow !text-copper-light">08 – Compromissos de governo</p>
             <h2 className="s8-title t-lg mt-2">
               <Mask>O que foi planejado,</Mask>
               <Mask>o que está acontecendo.</Mask>
@@ -71,17 +65,15 @@ export default function Slide08Commitments() {
               <li key={s} className="flex items-center gap-2 text-xs">
                 <span className="h-2.5 w-2.5 rounded-full" style={{ background: STATUS_META[s].color }} />
                 {STATUS_META[s].label}
-                <span className="font-mono text-white/60">{classified ? count(s) : <Pending>—</Pending>}</span>
+                <span className="font-mono text-white/60">{classified ? count(s) : <Pending> </Pending>}</span>
               </li>
             ))}
           </ul>
         </div>
-
         <div className="s8-head relative mt-3 min-h-0 flex-1">
           <div className="s8-track absolute left-0 top-0 flex h-full w-max items-stretch gap-6 pl-[8vw] pr-[40vw] will-change-transform md:gap-10 md:pl-14">
             <span className="absolute left-0 right-0 top-1/2 h-[3px] -translate-y-1/2 bg-white/15" />
             <span className="s8-fill absolute left-0 right-0 top-1/2 h-[3px] origin-left -translate-y-1/2 bg-gradient-to-r from-copper-light via-white to-leaf" />
-
             {COMPROMISSOS.map((c, i) => {
               const color = c.status ? STATUS_META[c.status].color : "#5a7d9a";
               const up = i % 2 === 0;
@@ -113,15 +105,13 @@ export default function Slide08Commitments() {
                       />
                     </div>
                     <p className="eyebrow mt-1.5 !text-[0.58rem]">
-                      Progresso executado {c.progresso != null ? `· ${num(c.progresso)}%` : "· pendente"}
+                      Progresso executado {c.progresso != null ? `– ${num(c.progresso)}%` : "– pendente"}
                     </p>
                   </div>
                 </div>
               );
             })}
           </div>
-
-          {/* marcador fixo da linha de progresso */}
           <div className="pointer-events-none absolute left-[30vw] top-1/2 z-20 -ml-px h-24 w-px -translate-y-1/2 bg-gradient-to-b from-transparent via-white/50 to-transparent" />
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { ScrollTrigger } from "@/animations/scrollAnimations";
 import { Header } from "@/components/Header";
+import { IntroOverlay } from "@/components/IntroOverlay";
 import { Navigation } from "@/components/Navigation";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import Slide01Opening from "@/sections/Slide01Opening";
@@ -17,18 +18,45 @@ import Slide11Gallery from "@/sections/Slide11Gallery";
 
 export default function App() {
   useEffect(() => {
+    let active = true;
+    let firstFrame = 0;
+    let secondFrame = 0;
     const refresh = () => ScrollTrigger.refresh();
-    window.addEventListener("load", refresh);
-    // garante recálculo depois que fontes/imagens iniciais estabilizam o layout
-    const t = window.setTimeout(refresh, 600);
+    const scheduleRefresh = () => {
+      if (!active) return;
+      window.cancelAnimationFrame(firstFrame);
+      window.cancelAnimationFrame(secondFrame);
+      firstFrame = window.requestAnimationFrame(() => {
+        secondFrame = window.requestAnimationFrame(refresh);
+      });
+    };
+
+    window.addEventListener("load", scheduleRefresh);
+    window.addEventListener("resize", scheduleRefresh);
+    window.addEventListener("orientationchange", scheduleRefresh);
+    window.visualViewport?.addEventListener("resize", scheduleRefresh);
+    document.addEventListener("fullscreenchange", scheduleRefresh);
+    const fontReady = document.fonts?.ready.then(scheduleRefresh);
+    const t = window.setTimeout(scheduleRefresh, 600);
+    scheduleRefresh();
+
     return () => {
-      window.removeEventListener("load", refresh);
+      active = false;
+      window.removeEventListener("load", scheduleRefresh);
+      window.removeEventListener("resize", scheduleRefresh);
+      window.removeEventListener("orientationchange", scheduleRefresh);
+      window.visualViewport?.removeEventListener("resize", scheduleRefresh);
+      document.removeEventListener("fullscreenchange", scheduleRefresh);
       window.clearTimeout(t);
+      window.cancelAnimationFrame(firstFrame);
+      window.cancelAnimationFrame(secondFrame);
+      void fontReady;
     };
   }, []);
 
   return (
     <>
+      <IntroOverlay />
       <ScrollProgress />
       <Header />
       <Navigation />

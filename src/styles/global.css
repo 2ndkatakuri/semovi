@@ -28,9 +28,6 @@ body {
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-}
-
-* {
   box-sizing: border-box;
 }
 
@@ -39,11 +36,10 @@ body {
   color: #fff;
 }
 
-/* Palco fixo de cada capítulo (sticky) */
 .stage {
   position: sticky;
   top: 0;
-  height: 100svh;
+  height: 100dvh;
   width: 100%;
   overflow: hidden;
   background:
@@ -51,7 +47,6 @@ body {
     linear-gradient(180deg, #0a2a43 0%, #08233a 100%);
 }
 
-/* Grade técnica / blueprint */
 .blueprint {
   background-image:
     linear-gradient(rgba(90, 125, 154, 0.12) 1px, transparent 1px),
@@ -61,7 +56,6 @@ body {
   background-size: 96px 96px, 96px 96px, 24px 24px, 24px 24px;
 }
 
-/* Campo pendente de preenchimento */
 .pending {
   display: inline-flex;
   align-items: center;
@@ -76,6 +70,7 @@ body {
   border-radius: 2px;
   white-space: nowrap;
 }
+
 .pending::before {
   content: "";
   width: 5px;
@@ -84,19 +79,18 @@ body {
   background: #e58f68;
 }
 
-/* Máscara de texto */
 .mask {
   display: block;
   overflow: hidden;
   padding-bottom: 0.12em;
   margin-bottom: -0.12em;
 }
+
 .mask-in {
   display: block;
   will-change: transform;
 }
 
-/* Logos oficiais: oculta fallback quando o arquivo oficial carregou */
 [data-official="1"] .fallback-fill,
 [data-official="1"] .fallback-sub {
   display: none;
@@ -116,8 +110,7 @@ body {
     linear-gradient(180deg, rgba(6, 28, 46, 0.55), rgba(6, 28, 46, 0.1) 40%, rgba(6, 28, 46, 0.85));
 }
 
-button:focus-visible,
-a:focus-visible {
+button:focus-visible, a:focus-visible {
   outline: 2px solid #e58f68;
   outline-offset: 3px;
 }

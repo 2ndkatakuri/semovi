@@ -10,26 +10,21 @@ import { drawStrokes, prepareStrokes } from "@/animations/svgAnimations";
 import { layerIn, layerOut, maskReveal } from "@/animations/transitions";
 
 const TINTS = ["#5a7d9a", "#9db6c9", "#a44a2a", "#e58f68"];
-
 const ASSETS = [
   { img: MEDIA.images.pavimentacao, video: MEDIA.videos.pavimentacao, icon: MEDIA.svg.iconeAsfalto, file: "pavimentacao.jpg" },
   { img: MEDIA.images.terraplenagem, video: MEDIA.videos.terraplenagem, icon: MEDIA.svg.iconeTerraplenagem, file: "terraplenagem.jpg" },
   { img: MEDIA.images.iluminacaoPublica, video: MEDIA.videos.iluminacao, icon: MEDIA.svg.iconeIluminacao, file: "iluminacao-publica.jpg" },
 ];
-
 const YEAR_SVGS = [MEDIA.svg.timeline2025, MEDIA.svg.timeline2026, MEDIA.svg.timeline2027, MEDIA.svg.timeline2028];
 
 const build: SceneBuilder = (tl, q) => {
-  /* ----- Fase 1: linha do tempo monumental 2025 → 2028 ----- */
   layerIn(tl, q(".s10-eyebrow"), 0, 0.8, 0, 14);
   maskReveal(tl, q(".s10-title .mask-in"), 0.1, 1.1, 0.14);
   drawStrokes(tl, q(".s10-ring .draw"), 0, 4.5, 0.3);
   tl.to(q(".s10-ring"), { rotate: 150, duration: 10, ease: "none" }, 0);
-
   const segs = q(".tl-seg");
   prepareStrokes(segs);
   segs.forEach((seg, i) => drawStrokes(tl, seg, 0.4 + i * 0.95, 1.05));
-
   const years = q(".tl-year");
   years.forEach((y, i) => {
     const at = 0.7 + i * 0.95;
@@ -44,7 +39,6 @@ const build: SceneBuilder = (tl, q) => {
   tl.fromTo(q(".s10-brace-b"), { scaleX: 0 }, { scaleX: 1, duration: 1, ease: "power2.inOut" }, 3.9);
   layerIn(tl, q(".s10-brace-a + span, .s10-brace-b + span"), 2.8, 0.7, 1.2, 10);
 
-  /* ----- Fase 2: a linha sobe e os três eixos entram em deslocamento horizontal ----- */
   const T = 5.2;
   layerOut(tl, q(".s10-head, .s10-braces, .s10-yearsvg"), T - 0.2, 0.7, -10);
   tl.to(
@@ -53,7 +47,6 @@ const build: SceneBuilder = (tl, q) => {
     T
   );
   tl.to(q(".s10-ring"), { opacity: 0.25, duration: 1 }, T);
-
   EIXOS.forEach((_, i) => {
     const at = T + 0.6 + i * 1.5;
     const p = `.s10-panel-${i}`;
@@ -68,37 +61,32 @@ const build: SceneBuilder = (tl, q) => {
 
 export default function Slide10Future() {
   return (
-    <SectionTransition id="futuro" n={10} label="Próximos passos 2027–2028" height={8} build={build}>
+    <SectionTransition id="futuro" n={10} label="Próximos passos 2027-2028" height={8} build={build}>
       <div className="s10-tint absolute inset-0 opacity-[0.2]" style={{ backgroundColor: "#0a2a43" }} />
       <div className="blueprint absolute inset-0 opacity-40" />
-
-      {/* geometria técnica de fundo */}
       <svg viewBox="0 0 400 400" className="s10-ring pointer-events-none absolute left-1/2 top-1/2 h-[120vmin] w-[120vmin] -translate-x-1/2 -translate-y-1/2" fill="none" aria-hidden="true">
         <circle className="draw" pathLength={1} cx="200" cy="200" r="190" stroke="#5a7d9a" strokeOpacity="0.45" strokeWidth="0.8" />
         <circle className="draw" pathLength={1} cx="200" cy="200" r="140" stroke="#5a7d9a" strokeOpacity="0.35" strokeWidth="0.8" strokeDasharray="1" />
         <line className="draw" pathLength={1} x1="200" y1="0" x2="200" y2="400" stroke="#e58f68" strokeOpacity="0.5" strokeWidth="0.8" />
         <line className="draw" pathLength={1} x1="0" y1="200" x2="400" y2="200" stroke="#e58f68" strokeOpacity="0.5" strokeWidth="0.8" />
       </svg>
-
       <div className="s10-head absolute inset-x-0 top-0 px-6 pt-20 md:px-14">
-        <p className="s10-eyebrow eyebrow !text-copper-light">10 · Próximos passos 2027–2028</p>
+        <p className="s10-eyebrow eyebrow !text-copper-light">10 – Próximos passos 2027-2028</p>
         <h2 className="s10-title t-lg mt-3">
           <Mask>O próximo capítulo</Mask>
           <Mask>começa agora.</Mask>
         </h2>
       </div>
-
-      {/* linha do tempo */}
       <div className="s10-tl absolute inset-x-0 top-[40%] z-20 px-4 will-change-transform md:px-14" style={{ transformOrigin: "50% 0" }}>
         <Timeline />
         <div className="s10-braces mt-5 grid grid-cols-2 gap-2">
           <div>
             <span className="s10-brace-a block h-px origin-left bg-white" />
-            <span className="eyebrow mt-2 block !text-white opacity-0">2025–2026 · retrospectiva · realizado</span>
+            <span className="eyebrow mt-2 block !text-white opacity-0">2025–2026 – retrospectiva – realizado</span>
           </div>
           <div>
             <span className="s10-brace-b block h-px origin-left bg-copper-light" />
-            <span className="eyebrow mt-2 block !text-copper-light opacity-0">2027–2028 · planejamento · metas</span>
+            <span className="eyebrow mt-2 block !text-copper-light opacity-0">2027–2028 – planejamento – metas</span>
           </div>
         </div>
         <div className="mt-6 hidden justify-between gap-4 md:flex">
@@ -109,8 +97,6 @@ export default function Slide10Future() {
           ))}
         </div>
       </div>
-
-      {/* eixos estratégicos */}
       {EIXOS.map((e, i) => (
         <article key={e.id} className={`s10-panel s10-panel-${i} absolute inset-0 z-10`} style={{ transform: "translateX(100%)" }}>
           <div className="absolute inset-0 overflow-hidden bg-navy-deep">
@@ -125,7 +111,6 @@ export default function Slide10Future() {
             alt=""
             className="absolute bottom-24 right-8 hidden h-28 w-28 opacity-80 lg:block"
           />
-
           <div className="s10-pc absolute inset-0 grid content-end gap-6 px-6 pb-20 pt-36 md:grid-cols-[1.25fr_1fr] md:content-center md:items-center md:gap-14 md:px-16 md:pb-8 md:pt-44">
             <div>
               <p className="eyebrow !text-copper-light">Eixo estratégico {e.n} / 03</p>
@@ -141,7 +126,7 @@ export default function Slide10Future() {
             </div>
             <div className="border-l border-copper-light/60 pl-5">
               <span className="s10-badge mb-4 inline-block border border-dashed border-copper-light px-3 py-1 font-mono text-[0.65rem] uppercase tracking-widest text-copper-light opacity-0">
-                Planejamento · previsão, não obra executada
+                Planejamento – previsão, não obra executada
               </span>
               <div className="grid grid-cols-3 gap-4 md:grid-cols-1 md:gap-5">
                 <Field label="Meta" value={e.meta} />

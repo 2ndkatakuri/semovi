@@ -1,7 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { cn } from "@/utils/cn";
 
-/** Quadro técnico exibido enquanto a mídia oficial não foi adicionada à pasta public. */
 export function MediaPlaceholder({ label, kind = "FOTOGRAFIA" }: { label: string; kind?: string }) {
   return (
     <div
@@ -23,7 +22,6 @@ export function MediaPlaceholder({ label, kind = "FOTOGRAFIA" }: { label: string
   );
 }
 
-/** Imagem que só aparece se o arquivo existir (útil para ilustrações SVG opcionais). */
 export function OptionalImg({
   src,
   alt,
@@ -58,7 +56,6 @@ type Props = {
   children?: ReactNode;
 };
 
-/** Fotografia com carregamento lazy, fallback técnico e classe própria para zoom/parallax. */
 export function ImageReveal({ src, alt, className, imgClassName, label, children }: Props) {
   const [state, setState] = useState<"loading" | "ok" | "error">("loading");
   return (

@@ -1,4 +1,3 @@
-/** Formatação brasileira */
 export const brl = (value: number | null | undefined): string | null =>
   value == null
     ? null

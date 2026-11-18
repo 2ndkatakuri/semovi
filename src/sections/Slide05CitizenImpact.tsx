@@ -13,7 +13,6 @@ const PANELS = [
 ];
 
 const build: SceneBuilder = (tl, q) => {
-  /* Fase 1 — antes e depois: máscara SVG (polígono animado) revela a foto "depois" */
   const poly = q(".s5-poly")[0] as unknown as SVGPolygonElement;
   const line = q(".s5-edge")[0] as unknown as SVGLineElement;
   const knob = q(".s5-knob")[0] as HTMLElement;
@@ -28,17 +27,14 @@ const build: SceneBuilder = (tl, q) => {
     knob.style.opacity = x <= -0.1 || x >= 1.1 ? "0" : "1";
   };
   apply();
-
   maskReveal(tl, q(".s5-title .mask-in"), 0.1, 1.1, 0.14);
   layerIn(tl, q(".s5-eyebrow, .s5-label-before"), 0.2, 0.8, 0.1, 14);
   zoom(tl, q(".s5-ba-zoom"), 1.25, 1.05, 0, 5);
   tl.to(state, { x: 1.2, duration: 3.6, ease: "none", onUpdate: apply }, 0.9);
   layerIn(tl, q(".s5-label-after"), 3.4, 0.7, 0, 14);
-
   maskHide(tl, q(".s5-title .mask-in"), 4.5, 0.7, 0.06);
   layerOut(tl, q(".s5-ba-meta"), 4.6, 0.6);
 
-  /* Fase 2 — três dimensões do resultado para o cidadão */
   DIMENSOES.forEach((_, i) => {
     const at = 5 + i * 0.55;
     const p = `.s5-panel-${i}`;
@@ -54,7 +50,6 @@ const build: SceneBuilder = (tl, q) => {
 export default function Slide05CitizenImpact() {
   return (
     <SectionTransition id="cidadao" n={5} label="Resultados para o cidadão" height={4.5} build={build}>
-      {/* máscara vetorial (clipPath SVG em unidades relativas ao elemento) */}
       <svg width="0" height="0" className="absolute" aria-hidden="true">
         <defs>
           <clipPath id="s5-clip" clipPathUnits="objectBoundingBox">
@@ -62,8 +57,6 @@ export default function Slide05CitizenImpact() {
           </clipPath>
         </defs>
       </svg>
-
-      {/* Fase 1 */}
       <div className="absolute inset-0">
         <ImageReveal
           src={MEDIA.images.obrasAntes}
@@ -82,7 +75,6 @@ export default function Slide05CitizenImpact() {
           />
         </div>
         <div className="film absolute inset-0" />
-
         <svg viewBox="0 0 1 1" preserveAspectRatio="none" className="s5-ba-meta pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true">
           <line className="s5-edge" x1="0" y1="0" x2="0" y2="1" stroke="#fff" strokeWidth="2" vectorEffect="non-scaling-stroke" />
         </svg>
@@ -91,11 +83,10 @@ export default function Slide05CitizenImpact() {
             <path d="M6 1L1 6l5 5M14 1l5 5-5 5" />
           </svg>
         </div>
-
         <div className="absolute inset-x-0 top-0 px-6 pt-24 sm:px-10 md:px-16">
-          <p className="s5-eyebrow eyebrow !text-copper-light">05 · Resultados para o cidadão</p>
+          <p className="s5-eyebrow eyebrow !text-copper-light">05 – Resultados para o cidadão</p>
           <h2 className="s5-title t-xl mt-4 max-w-4xl">
-            <Mask>Obras não são</Mask>
+            <Mask>Obras não</Mask>
             <Mask>apenas estruturas.</Mask>
             <Mask inClassName="text-copper-light">São mudanças na vida das pessoas.</Mask>
           </h2>
@@ -105,8 +96,6 @@ export default function Slide05CitizenImpact() {
           <span className="s5-label-after eyebrow rounded-sm bg-leaf px-3 py-1.5 !text-navy-deep opacity-0">Depois</span>
         </div>
       </div>
-
-      {/* Fase 2 */}
       <div className="absolute inset-0 grid grid-rows-3 md:grid-cols-3 md:grid-rows-1">
         {DIMENSOES.map((d, i) => (
           <div key={d.id} className={`s5-panel s5-panel-${i} relative overflow-hidden`} style={{ clipPath: "inset(100% 0 0 0)" }}>
