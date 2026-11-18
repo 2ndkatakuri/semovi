@@ -12,7 +12,7 @@ export const MEDIA = {
   logos: {
     prefeitura: vector("logo-prefeitura.svg"),
     semovi: vector("logo-semovi.svg"),
-    brasao: vector("brasao-altamira.svg"),
+    brasao: vector("brasao-altamira.png"),
   },
   svg: {
     mapa: vector("mapa-altamira.svg"),
